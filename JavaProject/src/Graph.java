@@ -29,7 +29,8 @@ public class Graph {
         graph[2].add(new Edge(2, 4));
 
         graph[3].add(new Edge(3, 1));
-        graph[2].add(new Edge(3, 4));
+        graph[3].add(new Edge(3, 4));
+        graph[3].add(new Edge(3, 5));
 
         graph[4].add(new Edge(4, 2));
         graph[4].add(new Edge(4, 3));
@@ -60,14 +61,30 @@ public class Graph {
         }
     }
 
+    public static void dfs(ArrayList<Edge> graph[], int curr, boolean[] visited) {
+        System.out.print(curr + " ");
+        visited[curr] = true;
+        for(int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if(visited[e.dest] == false)
+                dfs(graph, e.dest, visited);
+        }
+    }
+
     public static void main(String[] args) {
         int v = 7;
         ArrayList<Edge> graph[] = new ArrayList[v];
         createGraph(graph);
         boolean[] visited = new boolean[v];
+//        for(int i = 0; i < v; i++) {
+//            if(visited[i] == false) {
+//                bfs(graph, v, visited, i);
+//            }
+//        }
+        System.out.println();
         for(int i = 0; i < v; i++) {
             if(visited[i] == false) {
-                bfs(graph, v, visited, i);
+                dfs(graph, 0, visited);
             }
         }
         // print 3's neighbour
